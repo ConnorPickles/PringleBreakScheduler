@@ -1,0 +1,39 @@
+Information:
+    - leaders
+        - ropes training?
+        - NL?
+        - Sailing?
+        - staff or volunteer?
+        - cabin
+        - role (cabin leader, lifeguard, chaplin, day camp, ropes, crew/LIT)
+        - break preferences (ex. want to be at dance party, no water activities)
+    - activity group
+        - schedule
+        - leaders
+            - how many
+            - staff/volunteer
+            - ropes?
+            - NL?
+    - activity rotations
+        - # of ropes leaders needed?
+        - extra leaders at activity? (ex. faithquest, waterfront, climbing wall if ropes leader)
+    - other activities (campfire, widegame, beach party, dance party, skit night)
+        - who's leading?
+    - out trips
+        - is memory island happening?
+        - who's leading?
+
+Features:
+ - add/remove leaders
+ - edit leader information
+ - edit activity group information
+ - edit activity information
+ - edit out trip information
+ - save information
+ - schedule dropdown menu?
+ - everything customizable: try to let user edit as much as possible
+
+Requirements:
+    - leaders get 2 breaks per day
+    - a group of kids must always have at least 1 leader
+    - don't leave volunteers with a lot of kids and no staff
