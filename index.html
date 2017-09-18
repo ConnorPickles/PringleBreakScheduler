@@ -11,20 +11,20 @@
     <body onload="init()" class="visible">
         <div id="main" class="visible">
             <div id="title" class="visible">
-                <a href="javascript:changeScreen('home')" id="titleLink">Camp Pringle Break Scheduler</a>
+                <a href="javascript:changeScreen('main', 'home')" id="titleLink">Camp Pringle Break Scheduler</a>
             </div>
 
             <div id="menu" class="visible">
-                <button id="addNewInformationButton" class="menuButton" onClick="changeScreen('addNewInformation')">
+                <button id="newInfoButton" class="menuButton" onClick="changeScreen('main', 'newInfo')">
                     Add New Information
                 </button>
-                <button id="editInformationButton" class="menuButton" onClick="changeScreen('editInformation')">
+                <button id="editInfoButton" class="menuButton" onClick="changeScreen('main', 'editInfo')">
                     Edit Information
                 </button>
-                <button id="editActivityScheduleButton" class="menuButton" onClick="changeScreen('editActivitySchedule')">
+                <button id="editActivityScheduleButton" class="menuButton" onClick="changeScreen('main', 'editActivitySchedule')">
                     Edit Activity Schedule
                 </button>
-                <button id="generateBreakScheduleButton" class="menuButton" onClick="changeScreen('generateBreakSchedule')">
+                <button id="generateBreakScheduleButton" class="menuButton" onClick="changeScreen('main', 'generateBreakSchedule')">
                     Generate Break Schedule
                 </button>
             </div>
@@ -37,10 +37,36 @@
                 have a difficult time accounting for. Any schedules made by this tool should be reviewed before they are made official.
             </div>
 
-            <div id="addNewInformation" class="hidden">
+            <div id="newInfo" class="hidden">
+                <div id="newInfoMenu" class="visible">
+                    <button id="newLeaderButton" class="newInfoMenuButton" onClick="changeScreen('newInfo', 'newLeader')">
+                        New Leader
+                    </button>
+                    <button id="newActivityButton" class="newInfoMenuButton" onClick="changeScreen('newInfo', 'newActivity')">
+                        New Activity
+                    </button>
+                    <button id="newActivityGroupButton" class="newInfoMenuButton" onClick="changeScreen('newInfo', 'newActivityGroup')">
+                        New Activity Group
+                    </button>
+                </div>
+
+                <div id="newLeader" class="hidden">
+                    <hr>
+
+                </div>
+
+                <div id="newActivity" class="hidden">
+                    <hr>
+
+                </div>
+
+                <div id="newActivityGroup" class="hidden">
+                    <hr>
+                    
+                </div>
             </div>
 
-            <div id="editInformation" class="hidden">
+            <div id="editInfo" class="hidden">
             </div>
 
             <div id="editActivitySchedule" class="hidden">
