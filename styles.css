@@ -1,24 +1,62 @@
+/* Color scheme:
+    blue: 139, 156, 167
+    yellow: 251, 240, 178
+    cream: 245, 236, 219
+    light brown: 241, 192, 158
+    dark brown: 139, 107, 91
+*/
+
 body {
     background-image: url(Images/bg3.jpg);
     background-position: top center;
     background-repeat: no-repeat;
     background-size: 100%;
+    font-family:Tahoma, Geneva, sans-serif;
 }
 
 /* Id's */
 
+/* max height: 1280px */
 #main {
     position: relative;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
     width: 1000px;
-    height: 1000px;
-    background-color: rgba(255, 255, 255, .3)
+    height: 1480px;
+    background-color: rgba(255, 255, 255, .3);
+    border: thin solid black;
+    border-radius: 2em;
+}
+
+#title {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 70px;
+}
+
+#menu {
+    margin-top: 0px;
 }
 
 /* End of Id's */
 
 /* Classes */
+
+.menuButton {
+    font-size: 20px;
+    padding: 5px;
+    margin: 22px;
+    cursor: pointer;
+    border-radius: .3em;
+    background-color: rgba(251, 240, 178, .7);
+}
+
+.menuButton:hover {
+    background-color: rgba(241, 192, 158, .7);
+}
 
 .hidden {
   display:none;
