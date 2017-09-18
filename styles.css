@@ -8,6 +8,7 @@
 
 body {
     background-image: url(Images/bg3.jpg);
+    background-color: black;
     background-position: top center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -23,7 +24,6 @@ body {
     margin-right: auto;
     margin-top: 30px;
     width: 1000px;
-    height: 1480px;
     background-color: rgba(255, 255, 255, .3);
     border: thin solid black;
     border-radius: 2em;
@@ -37,11 +37,26 @@ body {
     font-size: 70px;
 }
 
+#titleLink {
+    color: black;
+    text-decoration: none;
+}
+
+#titleLink:hover {
+    text-shadow: 3px 3px 8px #F5ECDB;
+}
+
 #menu {
     margin-top: 0px;
 }
 
+#home {
+    position: relative;
+    margin: 27px;
+}
+
 /* End of Id's */
+
 
 /* Classes */
 

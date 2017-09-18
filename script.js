@@ -4,11 +4,18 @@
 * Date:    September 11th, 2017
 * Purpose: To create break schedules for Camp Pringle's summer program
 *************************************************************************/
+var currentScreen = "home";
 
-function foobar() {
-    var input = document.getElementById("test2").innerHTML;
-    alert(input);
-} // foobar
+function init() {
+
+}
+
+// makes the displayed screen newScreen
+function changeScreen(newScreen) {
+    document.getElementById(currentScreen).className = "hidden";
+    document.getElementById(newScreen).className = "visible";
+    currentScreen = newScreen;
+} // changeScreen
 
 // switches the visibility of the given element
 function changeVisibility(element) {
