@@ -7,6 +7,7 @@ Information:
         - cabin
         - role (cabin leader, lifeguard, chaplin, day camp, ropes, crew/LIT)
         - break preferences (ex. want to be at dance party, no water activities)
+        - at camp this week?
     - activity group
         - schedule
         - leaders
