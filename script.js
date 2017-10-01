@@ -26,7 +26,7 @@ function init() {
         var cabinsList = document.getElementById("newLeaderCabins");
         var atCampBox = document.getElementById("newLeaderAtCamp");
 
-        // check for invalid input
+        // TODO: check for invalid input
 
         /*
         var foobar = "input recieved\n";
@@ -90,8 +90,13 @@ function init() {
 
         newLeader.alertLeader();
 
+        // TODO: add new leader to the list, ensure multiple leaders can be added
+        // TODO: save new leader in the HTML file
+
         return false;
     }; // newLeaderForm.onsubmit
+
+    // TODO: read in input from HTML file
 } // init
 
 // makes the displayed screen newScreen
