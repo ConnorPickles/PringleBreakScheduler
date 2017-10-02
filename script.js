@@ -7,19 +7,71 @@
 var currentMain = "home"; // current main page
 var currentNewInfo = "newLeader"; // current newInfo page
 var leaders = []; // array of leaders
+var info = new information();
 
-function leader(newFirstName, newLastName, newRopes, newLifeguard, newSailing, newStaff, newRole, newBreaksDuring, newBreaksNotDuring, newCabin, newAtCamp) {
-    this.firstName = newFirstName;
-    this.lastName = newLastName;
-    this.ropes = newRopes;
-    this.lifeguard = newLifeguard;
-    this.sailing = newSailing;
-    this.staff = newStaff;
-    this.role = newRole;
-    this.breaksDuring = newBreaksDuring;
-    this.breaksNotDuring = newBreaksNotDuring;
-    this.cabin = newCabin;
-    this.atCamp = newAtCamp;
+// information object
+function information() {
+    this.numLeaders;
+
+    // get information from local storage
+    this.readInformation = function () {
+        var inputString = localStorage.information;
+        var input = inputString.split("_");
+
+        this.numLeaders = input[0];
+    } // readInformation
+
+    // save information to local storage
+    this.saveInformation = function () {
+        var output = "";
+
+        output += leaders.length + "_";
+
+        localStorage.information = output;
+    } // saveInformation
+} // information
+
+// leader object
+function leader() {
+    this.firstName;
+    this.lastName;
+    this.ropes;
+    this.lifeguard;
+    this.sailing;
+    this.staff;
+    this.role;
+    this.breaksDuring;
+    this.breaksNotDuring;
+    this.cabin;
+    this.atCamp;
+    this.number;
+
+    // initialize leader values
+    this.setValues = function (newFirstName, newLastName, newRopes, newLifeguard, newSailing, newStaff, newRole, newBreaksDuring, newBreaksNotDuring, newCabin, newAtCamp, newNumber) {
+        this.firstName = newFirstName;
+        this.lastName = newLastName;
+        this.ropes = newRopes;
+        this.lifeguard = newLifeguard;
+        this.sailing = newSailing;
+        this.staff = newStaff;
+        this.role = newRole;
+        this.breaksDuring = newBreaksDuring;
+        this.breaksNotDuring = newBreaksNotDuring;
+        this.cabin = newCabin;
+        this.atCamp = newAtCamp;
+        this.number = newNumber;
+    } // setValues
+
+    // saves leader to the HTML file
+    this.saveLeader = function () {
+        var output = "";
+        output += this.firstName + "_" + this.lastName + "_" + this.ropes + "_" + this.lifeguard + "_";
+        output += this.sailing + "_" + this.staff + "_" + this.role + "_" + this.breaksDuring + "_";
+        output += this.breaksNotDuring + "_" + this.cabin + "_" + this.atCamp + "_" + this.number;
+
+        localStorage.setItem("leader" + this.number, output);
+        alert(localStorage.leader0);
+    } // saveLeader
 
     // displays all information for a leader
     this.alertLeader = function () {
@@ -43,6 +95,9 @@ function leader(newFirstName, newLastName, newRopes, newLifeguard, newSailing, n
 function init() {
     var newLeaderForm = document.getElementById("newLeaderForm");
 
+    info.readInformation();
+    readLeaders();
+    
     // handle input for a new leader
     newLeaderForm.onsubmit = function () {
         var firstNameField = document.getElementById("newLeaderFirstName");
@@ -67,27 +122,59 @@ function init() {
             return false;
         } // else if
 
+        if (breaksDuringField.value == "") {
+            breaksDuringField.value = " ";
+        } // if
+
+        if (breaksNotDuringField.value == "") {
+            breaksNotDuringField.value = " ";
+        } // if
+
         // don't let leaders with the same name be added
         if (leaderExists(firstNameField.value, lastNameField.value)) {
             alert("This leader already exists!");
             return false;
         } // if
 
-        var newLeader = new leader(firstNameField.value, lastNameField.value,
-            ropesBox.checked, NLBox.checked, sailingBox.checked, staffBox.checked,
-            rolesList.value, breaksDuringField.value, breaksNotDuringField.value, cabinsList.value, atCampBox.checked);
+        var newLeader = new leader();
 
+        newLeader.setValues(firstNameField.value, lastNameField.value,
+            ropesBox.checked, NLBox.checked, sailingBox.checked, staffBox.checked,
+            rolesList.value, breaksDuringField.value, breaksNotDuringField.value,
+            cabinsList.value, atCampBox.checked, leaders.length);
         leaders.push(newLeader);
         leaders[leaders.length - 1].alertLeader();
         alertLeaders();
 
-        // TODO: save new leader in the HTML file
+        leaders[leaders.length - 1].saveLeader();
+        info.saveInformation();
 
         return false;
     }; // newLeaderForm.onsubmit
-
-    // TODO: read in input from HTML file
 } // init
+
+function readLeaders() {
+    for (var i = 0; i < info.numLeaders; i++) {
+        var inputString = localStorage.getItem("leader" + i);
+        var input = inputString.split("_");
+
+        var tempLeader = new leader();
+        tempLeader.firstName = input[0];
+        tempLeader.lastName = input[1];
+        tempLeader.ropes = input[2];
+        tempLeader.lifeguard = input[3];
+        tempLeader.sailing = input[4];
+        tempLeader.staff = input[5];
+        tempLeader.role = input[6];
+        tempLeader.breaksDuring = input[7];
+        tempLeader.breaksNotDuring = input[8];
+        tempLeader.cabin = input[9];
+        tempLeader.atCamp = input[10];
+        tempLeader.number = input[11];
+
+        leaders.push(tempLeader);
+    } // for i
+} // readLeaders
 
 function leaderExists(firstName, lastName) {
     firstName = firstName.toLowerCase();
