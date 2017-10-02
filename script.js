@@ -6,12 +6,44 @@
 *************************************************************************/
 var currentMain = "home"; // current main page
 var currentNewInfo = "newLeader"; // current newInfo page
-var leaders = [];
+var leaders = []; // array of leaders
+
+function leader(newFirstName, newLastName, newRopes, newLifeguard, newSailing, newStaff, newRole, newBreaksDuring, newBreaksNotDuring, newCabin, newAtCamp) {
+    this.firstName = newFirstName;
+    this.lastName = newLastName;
+    this.ropes = newRopes;
+    this.lifeguard = newLifeguard;
+    this.sailing = newSailing;
+    this.staff = newStaff;
+    this.role = newRole;
+    this.breaksDuring = newBreaksDuring;
+    this.breaksNotDuring = newBreaksNotDuring;
+    this.cabin = newCabin;
+    this.atCamp = newAtCamp;
+
+    // displays all information for a leader
+    this.alertLeader = function () {
+        var output = "input recieved\n";
+        output += "First name: " + this.firstName + "\n";
+        output += "Last name: " + this.lastName + "\n";
+        output += "ropes: " + this.ropes + "\n";
+        output += "lifeguard: " + this.lifeguard + "\n";
+        output += "sailing: " + this.sailing + "\n";
+        output += "staff: " + this.staff + "\n";
+        output += "role: " + this.role + "\n";
+        output += "breaksDuring: " + this.breaksDuring + "\n";
+        output += "breaksNotDuring: " + this.breaksNotDuring + "\n";
+        output += "cabin: " + this.cabin + "\n";
+        output += "atCamp: " + this.atCamp + "\n";
+        alert(output);
+    } // alertLeader
+} // leader
 
 // called when the page loads
 function init() {
     var newLeaderForm = document.getElementById("newLeaderForm");
 
+    // handle input for a new leader
     newLeaderForm.onsubmit = function () {
         var firstNameField = document.getElementById("newLeaderFirstName");
         var lastNameField = document.getElementById("newLeaderLastName");
@@ -19,78 +51,30 @@ function init() {
         var NLBox = document.getElementById("newLeaderNL");
         var sailingBox = document.getElementById("newLeaderSailing");
         var staffBox = document.getElementById("newLeaderStaff");
-        var volunteerBox = document.getElementById("newVolunteerBox");
+        var volunteerBox = document.getElementById("newLeaderVolunteer");
         var rolesList = document.getElementById("newLeaderRoles");
         var breaksDuringField = document.getElementById("newLeaderBreaksDuring");
         var breaksNotDuringField = document.getElementById("newLeaderBreaksNotDuring");
         var cabinsList = document.getElementById("newLeaderCabins");
         var atCampBox = document.getElementById("newLeaderAtCamp");
 
-        // TODO: check for invalid input
+        // check for invalid input
+        if (!staffBox.checked && !volunteerBox.checked) {
+            alert("Please check the Staff box or the Volunteer box");
+            return false;
+        } else if (staffBox.checked && volunteerBox.checked) {
+            alert("A leader cannot be staff and volunteer! Please uncheck one of the boxes");
+            return false;
+        } // else if
 
-        /*
-        var foobar = "input recieved\n";
-        foobar += "First name: " + firstNameField.value + "\n";
-        foobar += "Last name: " + lastNameField.value + "\n";
-        foobar += "ropes: " + ropesBox.checked + "\n";
-        foobar += "lifeguard: " + NLBox.checked + "\n";
-        foobar += "sailing: " + sailingBox.checked + "\n";
-        foobar += "staff: " + staffBox.checked + "\n";
-        foobar += "role: " + rolesList.value + "\n";
-        foobar += "breaksDuring: " + breaksDuringField.value + "\n";
-        foobar += "breaksNotDuring: " + breaksNotDuringField.value + "\n";
-        foobar += "cabin: " + cabinsList.value + "\n";
-        foobar += "atCamp: " + atCampBox.checked + "\n";
-        alert(foobar);
-        */
+        var newLeader = new leader(firstNameField.value, lastNameField.value,
+            ropesBox.checked, NLBox.checked, sailingBox.checked, staffBox.checked,
+            rolesList.value, breaksDuringField.value, breaksNotDuringField.value, cabinsList.value, atCampBox.checked);
 
-        /*
-        alert("input recieved");
-        alert("First name: " + firstNameField.value);
-        alert("Last name: " + lastNameField.value);
-        alert("ropes: " + ropesBox.checked);
-        alert("lifeguard: " + NLBox.checked);
-        alert("sailing: " + sailingBox.checked);
-        alert("staff: " + staffBox.checked);
-        alert("role: " + rolesList.value);
-        alert("breaksDuring: " + breaksDuringField.value);
-        alert("breaksNotDuring: " + breaksNotDuringField.value);
-        alert("cabin: " + cabinsList.value);
-        alert("atCamp: " + atCampBox.checked);
-        */
-
-        var newLeader = {
-            firstName:firstNameField.value,
-            lastName:lastNameField.value,
-            ropes:ropesBox.checked,
-            lifeguard:NLBox.checked,
-            sailing:sailingBox.checked,
-            staff:staffBox.checked,
-            role:rolesList.value,
-            breaksDuring:breaksDuringField.value,
-            breaksNotDuring:breaksNotDuringField.value,
-            cabin:cabinsList.value,
-            atCamp:atCampBox.checked,
-            alertLeader:function() {
-                var output = "input recieved\n";
-                output += "First name: " + this.firstName + "\n";
-                output += "Last name: " + this.lastName + "\n";
-                output += "ropes: " + this.ropes + "\n";
-                output += "lifeguard: " + this.lifeguard + "\n";
-                output += "sailing: " + this.sailing + "\n";
-                output += "staff: " + this.staff + "\n";
-                output += "role: " + this.role + "\n";
-                output += "breaksDuring: " + this.breaksDuring + "\n";
-                output += "breaksNotDuring: " + this.breaksNotDuring + "\n";
-                output += "cabin: " + this.cabin + "\n";
-                output += "atCamp: " + this.atCamp + "\n";
-                alert(output);
-            } // alertLeader
-        }; // newLeader
-
-        newLeader.alertLeader();
-
-        // TODO: add new leader to the list, ensure multiple leaders can be added
+        leaders.push(newLeader);
+        leaders[leaders.length - 1].alertLeader();
+        alertLeaders();
+        
         // TODO: save new leader in the HTML file
 
         return false;
@@ -98,6 +82,17 @@ function init() {
 
     // TODO: read in input from HTML file
 } // init
+
+function alertLeaders() {
+    var output = "List of leaders:\n";
+
+    for (var i = 0; i < leaders.length; i++) {
+        output += leaders[i].firstName + " " + leaders[i].lastName;
+        output += "\n";
+    } // for i
+
+    alert(output)
+} // listLeaders
 
 // makes the displayed screen newScreen
 function changeScreen(page, newScreen) {
