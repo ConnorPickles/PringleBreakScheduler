@@ -67,6 +67,12 @@ function init() {
             return false;
         } // else if
 
+        // don't let leaders with the same name be added
+        if (leaderExists(firstNameField.value, lastNameField.value)) {
+            alert("This leader already exists!");
+            return false;
+        } // if
+
         var newLeader = new leader(firstNameField.value, lastNameField.value,
             ropesBox.checked, NLBox.checked, sailingBox.checked, staffBox.checked,
             rolesList.value, breaksDuringField.value, breaksNotDuringField.value, cabinsList.value, atCampBox.checked);
@@ -74,7 +80,7 @@ function init() {
         leaders.push(newLeader);
         leaders[leaders.length - 1].alertLeader();
         alertLeaders();
-        
+
         // TODO: save new leader in the HTML file
 
         return false;
@@ -82,6 +88,23 @@ function init() {
 
     // TODO: read in input from HTML file
 } // init
+
+function leaderExists(firstName, lastName) {
+    firstName = firstName.toLowerCase();
+    lastName = lastName.toLowerCase();
+    var currFirst = "";
+    var currLast = "";
+
+    for (var i = 0; i < leaders.length; i++) {
+        currFirst = leaders[i].firstName.toLowerCase();
+        currLast = leaders[i].lastName.toLowerCase();
+        if (firstName == currFirst && lastName == currLast) {
+            return true;
+        } // if
+    } // for i
+
+    return false;
+} // leaderExists
 
 function alertLeaders() {
     var output = "List of leaders:\n";

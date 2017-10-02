@@ -38,3 +38,5 @@ Requirements:
     - leaders get 2 breaks per day
     - a group of kids must always have at least 1 leader
     - don't leave volunteers with a lot of kids and no staff
+    - don't give leaders of young cabins breaks during pack up time
+    - try to give 1 activity rotation break and 1 evening break (volunteers often can't have this)
