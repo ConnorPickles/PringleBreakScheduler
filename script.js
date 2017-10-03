@@ -97,7 +97,7 @@ function init() {
 
     info.readInformation();
     readLeaders();
-    
+
     // handle input for a new leader
     newLeaderForm.onsubmit = function () {
         var firstNameField = document.getElementById("newLeaderFirstName");
@@ -153,6 +153,7 @@ function init() {
     }; // newLeaderForm.onsubmit
 } // init
 
+// gets all leaders from localStorage
 function readLeaders() {
     for (var i = 0; i < info.numLeaders; i++) {
         var inputString = localStorage.getItem("leader" + i);
