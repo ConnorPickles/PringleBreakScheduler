@@ -18,7 +18,7 @@ function information() {
         var inputString = localStorage.information;
 
         // if no data exists, set default values
-        if (!("inputString" in window)) {
+        if (inputString == null) {
             this.numLeaders = 0;
         } else {
             var input = inputString.split("_");
@@ -138,7 +138,7 @@ function init() {
 
         // don't let leaders with the same name be added
         if (leaderExists(firstNameField.value, lastNameField.value)) {
-            alert("This leader already exists!");
+            alert("This leader has already been added!");
             return false;
         } // if
 
@@ -161,6 +161,7 @@ function init() {
 
 // gets all leaders from localStorage
 function readLeaders() {
+    alert(info.numLeaders);
     for (var i = 0; i < info.numLeaders; i++) {
         var inputString = localStorage.getItem("leader" + i);
         var input = inputString.split("_");

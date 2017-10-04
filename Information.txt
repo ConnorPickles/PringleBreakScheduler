@@ -15,7 +15,7 @@ Information:
             - staff/volunteer
             - ropes?
             - NL?
-    - activity rotations
+    - activity
         - # of ropes leaders needed?
         - extra leaders at activity? (ex. faithquest, waterfront, climbing wall if ropes leader)
     - other activities (campfire, widegame, beach party, dance party, skit night)
