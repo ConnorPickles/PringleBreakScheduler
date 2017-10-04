@@ -16,9 +16,15 @@ function information() {
     // get information from local storage
     this.readInformation = function () {
         var inputString = localStorage.information;
-        var input = inputString.split("_");
 
-        this.numLeaders = input[0];
+        // if no data exists, set default values
+        if (!("inputString" in window)) {
+            this.numLeaders = 0;
+        } else {
+            var input = inputString.split("_");
+            this.numLeaders = input[0];
+        } // else
+
     } // readInformation
 
     // save information to local storage
