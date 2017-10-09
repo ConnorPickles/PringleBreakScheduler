@@ -52,7 +52,7 @@
 
                 <div id="newLeader" class="hidden">
                     <hr>
-                    <form id="newLeaderForm" class="form">
+                    <form id="newLeaderForm" class="box">
                         First Name:<br>
                         <input type="text" id="newLeaderFirstName" required><br>
                         Last Name:<br>
@@ -79,7 +79,7 @@
                             <option value="crewLIT">Crew/LIT Leader</option>
                         </select>
                         <br><br>
-                        Break preferences (separate using a comma, no space):<br>
+                        Break preferences (separate using a comma and a space):<br>
                         This leader likes to have breaks during:
                         <input type="text" id="newLeaderBreaksDuring"><br>
                         This leader does not like to have breaks during:
@@ -118,6 +118,38 @@
             </div>
 
             <div id="editInfo" class="hidden">
+                <div id="editInfoMenu" class="visible">
+                    <button id="editLeaderButton" class="editInfoMenuButton" onClick="changeScreen('editInfo', 'editLeader'), listLeaders()">
+                        Edit Leader
+                    </button>
+                    <button id="editActivityButton" class="editInfoMenuButton" onClick="changeScreen('editInfo', 'editActivity')">
+                        Edit Activity
+                    </button>
+                    <button id="editActivityGroupButton" class="editInfoMenuButton" onClick="changeScreen('editInfo', 'editActivityGroup')">
+                        Edit Activity Group
+                    </button>
+                </div>
+
+                <div id="editLeader" class="hidden">
+                    <hr>
+                    <div id="leaderList" class="visible">
+                        <!-- content is printed by listLeaders() -->
+                    </div>
+
+                    <div id="leaderInfo" class="hidden">
+                        <!-- content is printed by displayLeaderToEdit(i) -->
+                    </div>
+                </div>
+
+                <div id="editActivity" class="hidden">
+                    <hr>
+
+                </div>
+
+                <div id="editActivityGroup" class="hidden">
+                    <hr>
+
+                </div>
             </div>
 
             <div id="editActivitySchedule" class="hidden">
