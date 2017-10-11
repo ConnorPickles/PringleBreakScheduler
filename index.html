@@ -39,13 +39,13 @@
 
             <div id="newInfo" class="hidden">
                 <div id="newInfoMenu" class="visible">
-                    <button id="newLeaderButton" class="newInfoMenuButton" onClick="changeScreen('newInfo', 'newLeader')">
+                    <button id="newLeaderButton" class="menuButton" onClick="changeScreen('newInfo', 'newLeader')">
                         New Leader
                     </button>
-                    <button id="newActivityButton" class="newInfoMenuButton" onClick="changeScreen('newInfo', 'newActivity')">
+                    <button id="newActivityButton" class="menuButton" onClick="changeScreen('newInfo', 'newActivity')">
                         New Activity
                     </button>
-                    <button id="newActivityGroupButton" class="newInfoMenuButton" onClick="changeScreen('newInfo', 'newActivityGroup')">
+                    <button id="newActivityGroupButton" class="menuButton" onClick="changeScreen('newInfo', 'newActivityGroup')">
                         New Activity Group
                     </button>
                 </div>
@@ -119,13 +119,13 @@
 
             <div id="editInfo" class="hidden">
                 <div id="editInfoMenu" class="visible">
-                    <button id="editLeaderButton" class="editInfoMenuButton" onClick="changeScreen('editInfo', 'editLeader'), listLeaders()">
+                    <button id="editLeaderButton" class="menuButton" onClick="changeScreen('editInfo', 'editLeader'), displayLeaders()">
                         Edit Leader
                     </button>
-                    <button id="editActivityButton" class="editInfoMenuButton" onClick="changeScreen('editInfo', 'editActivity')">
+                    <button id="editActivityButton" class="menuButton" onClick="changeScreen('editInfo', 'editActivity')">
                         Edit Activity
                     </button>
-                    <button id="editActivityGroupButton" class="editInfoMenuButton" onClick="changeScreen('editInfo', 'editActivityGroup')">
+                    <button id="editActivityGroupButton" class="menuButton" onClick="changeScreen('editInfo', 'editActivityGroup')">
                         Edit Activity Group
                     </button>
                 </div>
@@ -133,11 +133,15 @@
                 <div id="editLeader" class="hidden">
                     <hr>
                     <div id="leaderList" class="visible">
-                        <!-- content is printed by listLeaders() -->
+                        <!-- content is printed by displayLeaders() -->
                     </div>
 
                     <div id="leaderInfo" class="hidden">
                         <!-- content is printed by displayLeaderToEdit(i) -->
+                    </div>
+
+                    <div id="deleteLeader" class="hidden">
+                        <!-- content is printed by displayDeleteLeader(i) -->
                     </div>
                 </div>
 

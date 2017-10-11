@@ -11,6 +11,9 @@ var currentEditLeader = "leaderList"; // current editLeader page
 var leaders = []; // array of leaders
 var info = new information();
 
+// TODO: add titles to identify current page
+// TODO: fix each leader's number after deletion
+
 // information object
 function information() {
     this.numLeaders;
@@ -158,8 +161,6 @@ function init() {
 
         return false;
     }; // newLeaderForm.onsubmit
-
-    // TODO: add editLeaderForm.onsubmit functionality
 } // init
 
 // gets all leaders from localStorage
@@ -210,6 +211,7 @@ function readLeaders() {
     } // for i
 } // readLeaders
 
+// checks if a leader with the given name exists
 function leaderExists(firstName, lastName) {
     firstName = firstName.toLowerCase();
     lastName = lastName.toLowerCase();
@@ -227,6 +229,14 @@ function leaderExists(firstName, lastName) {
     return false;
 } // leaderExists
 
+// deletes a leader
+function deleteLeader(i) {
+    leaders.splice(i, 1);
+    info.saveInformation();
+    alert("Leader successfully deleted!");
+} // deleteLeader
+
+// alerts a list of leaders with their first and last name
 function alertLeaders() {
     var output = "List of leaders:\n";
 
@@ -238,7 +248,8 @@ function alertLeaders() {
     alert(output)
 } // alertLeaders
 
-function listLeaders() {
+// prints the content of the leaderList div
+function displayLeaders() {
     var content = "<h2>Click a leader to edit their information:</h2><ul>";
 
     for (var i = 0; i < leaders.length; i++) {
@@ -249,10 +260,15 @@ function listLeaders() {
     content += "</ul>";
 
     document.getElementById("leaderList").innerHTML = content;
-} // listLeaders
+} // displayLeaders
 
+// prints the content of the leaderInfo div
 function displayLeaderToEdit(i) {
-    var content = "<h2><a href=\"javascript:changeScreen('editLeader', 'leaderList'), listLeaders()\" class='editLeaderList'>Back to leaders</a></h2>";
+    var index = i;
+
+    var content = "<button id='backToLeadersButton' onClick=\"changeScreen('editLeader', 'leaderList'), displayLeaders()\">";
+    content += "Back to leaders</button><br><br>";
+
     content += "<form id='editLeaderForm'>";
     content += "First Name:<br>";
     content += "<input type='text' id='editLeaderFirstName' value='" + leaders[i].firstName + "' required><br>";
@@ -313,7 +329,7 @@ function displayLeaderToEdit(i) {
         content += " selected";
     } // if
     content += ">Ropes Leader</option>";
-    content += "<option value='creLIT'";
+    content += "<option value='crewLIT'";
     if (leaders[i].role == "crewLIT") {
         content += " selected";
     } // if
@@ -323,11 +339,15 @@ function displayLeaderToEdit(i) {
     content += "Break preferences (separate using a comma and a space):<br>";
     content += "This leader likes to have breaks during:";
     content += "<input type='text' id='editLeaderBreaksDuring' value='";
-    content += leaders[i].breaksDuring;
+    if (leaders[i].breaksDuring != " ") {
+        content += leaders[i].breaksDuring;
+    } // if
     content += "'><br>";
     content += "This leader does not like to have breaks during:";
     content += "<input type='text' id='editLeaderBreaksNotDuring' value='";
-    content += leaders[i].breaksNotDuring;
+    if (leaders[i].breaksNotDuring != " ") {
+        content += leaders[i].breaksNotDuring;
+    } // if
     content += "'><br><br>";
 
     content += "Cabin: <select id='editLeaderCabins'>";
@@ -390,12 +410,84 @@ function displayLeaderToEdit(i) {
     } // if
     content += "><br><br>";
     content += "<input type='submit' value='Submit'>";
-    content += "</form>";
+    content += "</form><hr>";
 
-    // TODO: add a delete leader button
+    content += "<button id='deleteButton' class='deleteButton' onClick=\"changeScreen('editLeader', 'deleteLeader'), displayDeleteLeader(" + index + ")\">";
+    content += "Delete</button>";
 
     document.getElementById("leaderInfo").innerHTML = content;
+
+    editLeaderForm.onsubmit = function () {
+        var firstNameField = document.getElementById("editLeaderFirstName");
+        var lastNameField = document.getElementById("editLeaderLastName");
+        var ropesBox = document.getElementById("editLeaderRopes");
+        var NLBox = document.getElementById("editLeaderNL");
+        var sailingBox = document.getElementById("editLeaderSailing");
+        var staffBox = document.getElementById("editLeaderStaff");
+        var volunteerBox = document.getElementById("editLeaderVolunteer");
+        var rolesList = document.getElementById("editLeaderRoles");
+        var breaksDuringField = document.getElementById("editLeaderBreaksDuring");
+        var breaksNotDuringField = document.getElementById("editLeaderBreaksNotDuring");
+        var cabinsList = document.getElementById("editLeaderCabins");
+        var atCampBox = document.getElementById("editLeaderAtCamp");
+
+        // check for invalid input
+        if (!staffBox.checked && !volunteerBox.checked) {
+            alert("Please check the Staff box or the Volunteer box");
+            return false;
+        } else if (staffBox.checked && volunteerBox.checked) {
+            alert("A leader cannot be staff and volunteer! Please uncheck one of the boxes");
+            return false;
+        } // else if
+
+        // don't let the name be changed to an existing leader
+        if (leaderExists(firstNameField.value, lastNameField.value)) {
+            alert("This leader already exists!");
+            return false;
+        } // if
+
+        if (breaksDuringField.value == "") {
+            breaksDuringField.value = " ";
+        } // if
+
+        if (breaksNotDuringField.value == "") {
+            breaksNotDuringField.value = " ";
+        } // if
+
+        leaders[index].firstName = firstNameField.value;
+        leaders[index].lastName = lastNameField.value;
+        leaders[index].ropes = ropesBox.checked;
+        leaders[index].lifeguard = NLBox.checked;
+        leaders[index].sailing = sailingBox.checked;
+        leaders[index].staff = staffBox.checked;
+        leaders[index].role = rolesList.value;
+        leaders[index].breaksDuring = breaksDuringField.value;
+        leaders[index].breaksNotDuring = breaksNotDuringField.value;
+        leaders[index].cabin = cabinsList.value;
+        leaders[index].atCamp = atCampBox.checked;
+        leaders[index].saveLeader();
+
+        alert("Information successfully saved!");
+        displayLeaders();
+        changeScreen('editLeader', 'leaderList');
+
+        return false;
+    } // editLeaderForm.onsubmit
 } // displayLeaderToEdit
+
+// prints the content of the deleteLeader div
+function displayDeleteLeader(i) {
+    var content = "";
+
+    content += "Careful! Are you sure you want to delete <strong>" + leaders[i].firstName + " " + leaders[i].lastName;
+    content += "</strong>    and all of their information?<br><br>";
+    content += "<button id='deleteLeaderYesButton' class='deleteButton' onClick=\"deleteLeader(" + i + "), changeScreen('editLeader', 'leaderList'), displayLeaders()\">";
+    content += "Yes</button>    ";
+    content += "<button id='deleteLeaderNoButton' class='deleteButton' onClick=\"changeScreen('editLeader', 'leaderInfo')\">";
+    content += "No</button>";
+
+    document.getElementById("deleteLeader").innerHTML = content;
+} // displayDeleteLeader
 
 // makes the displayed screen newScreen
 function changeScreen(page, newScreen) {

@@ -60,7 +60,24 @@ body {
 }
 
 #leaderInfo {
-    margin: 22px;    
+    margin: 22px;
+}
+
+#deleteLeader {
+    margin: 22px;
+}
+
+#backToLeadersButton {
+    font-size: 20px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: .3em;
+    background-color: rgba(251, 240, 178, .7);
+    outline: none;
+}
+
+#backToLeadersButton:hover {
+    background-color: rgba(241, 192, 158, .7);
 }
 
 /* End of Id's */
@@ -82,36 +99,21 @@ body {
     background-color: rgba(241, 192, 158, .7);
 }
 
-.newInfoMenuButton {
-    font-size: 20px;
-    padding: 5px;
-    margin: 22px;
-    cursor: pointer;
-    border-radius: .3em;
-    background-color: rgba(251, 240, 178, .7);
-    outline: none;
-}
-
-.newInfoMenuButton:hover {
-    background-color: rgba(241, 192, 158, .7);
-}
-
-.editInfoMenuButton {
-    font-size: 20px;
-    padding: 5px;
-    margin: 22px;
-    cursor: pointer;
-    border-radius: .3em;
-    background-color: rgba(251, 240, 178, .7);
-    outline: none;
-}
-
-.editInfoMenuButton:hover {
-    background-color: rgba(241, 192, 158, .7);
-}
-
 .menuButton:hover {
     background-color: rgba(241, 192, 158, .7);
+}
+
+.deleteButton {
+    font-size: 15px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: .3em;
+    background-color: rgb(251, 240, 178);
+    outline: none;
+}
+
+.deleteButton:hover {
+    background-color: rgb(224, 86, 58);
 }
 
 .editLeaderList {
