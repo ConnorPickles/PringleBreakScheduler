@@ -97,6 +97,7 @@ function leader() {
         output += "breaksNotDuring: " + this.breaksNotDuring + "\n";
         output += "cabin: " + this.cabin + "\n";
         output += "atCamp: " + this.atCamp + "\n";
+        output += "number: " + this.number + "\n";
         alert(output);
     } // alertLeader
 } // leader
@@ -233,6 +234,12 @@ function leaderExists(firstName, lastName) {
 function deleteLeader(i) {
     leaders.splice(i, 1);
     info.saveInformation();
+
+    for (var j = i; j < leaders.length; j++) {
+        leaders[j].number--;
+        leaders[j].saveLeader();
+    } // for j
+
     alert("Leader successfully deleted!");
 } // deleteLeader
 
@@ -265,7 +272,7 @@ function displayLeaders() {
 // prints the content of the leaderInfo div
 function displayLeaderToEdit(i) {
     var index = i;
-
+    
     var content = "<button id='backToLeadersButton' onClick=\"changeScreen('editLeader', 'leaderList'), displayLeaders()\">";
     content += "Back to leaders</button><br><br>";
 

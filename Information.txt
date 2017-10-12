@@ -40,3 +40,4 @@ Requirements:
     - don't leave volunteers with a lot of kids and no staff
     - don't give leaders of young cabins breaks during pack up time
     - try to give 1 activity rotation break and 1 evening break (volunteers often can't have this)
+    - Waterfront: must have at least two guards always, 3 if there are 3+ groups or whole camp
