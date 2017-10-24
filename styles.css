@@ -56,15 +56,15 @@ body {
 }
 
 #leaderList {
-    margin: 22px;
+    margin: 15px;
 }
 
 #leaderInfo {
-    margin: 22px;
+    margin: 15px;
 }
 
 #deleteLeader {
-    margin: 22px;
+    margin: 15px;
 }
 
 #backToLeadersButton {
@@ -88,7 +88,7 @@ body {
 .menuButton {
     font-size: 20px;
     padding: 5px;
-    margin: 22px;
+    margin: 15px;
     cursor: pointer;
     border-radius: .3em;
     background-color: rgba(251, 240, 178, .7);
@@ -99,8 +99,18 @@ body {
     background-color: rgba(241, 192, 158, .7);
 }
 
-.menuButton:hover {
+.activeMenuButton {
+    font-size: 20px;
+    padding: 5px;
+    margin: 15px;
+    cursor: pointer;
+    border-radius: .3em;
     background-color: rgba(241, 192, 158, .7);
+    outline: none;
+}
+
+.activeMenuButton:hover {
+    background-color: rgba(139, 107, 91, .7);
 }
 
 .deleteButton {
@@ -126,7 +136,7 @@ body {
 }
 
 .box {
-    margin: 22px;
+    margin: 15px;
 }
 
 .hidden {

@@ -11,9 +11,6 @@ var currentEditLeader = "leaderList"; // current editLeader page
 var leaders = []; // array of leaders
 var info = new information();
 
-// TODO: add titles to identify current page
-// TODO: fix each leader's number after deletion
-
 // information object
 function information() {
     this.numLeaders;
@@ -272,7 +269,7 @@ function displayLeaders() {
 // prints the content of the leaderInfo div
 function displayLeaderToEdit(i) {
     var index = i;
-    
+
     var content = "<button id='backToLeadersButton' onClick=\"changeScreen('editLeader', 'leaderList'), displayLeaders()\">";
     content += "Back to leaders</button><br><br>";
 
@@ -519,6 +516,14 @@ function changeScreen(page, newScreen) {
     } // switch
     document.getElementById(currentScreen).className = "hidden";
     document.getElementById(newScreen).className = "visible";
+    if (currentScreen == "home") {
+        document.getElementById(newScreen + "Button").className = "activeMenuButton";
+    } else if (newScreen == "home") {
+        document.getElementById(currentScreen + "Button").className = "menuButton";
+    } else {
+        document.getElementById(currentScreen + "Button").className = "menuButton";
+        document.getElementById(newScreen + "Button").className = "activeMenuButton";
+    }
 } // changeScreen
 
 // switches the visibility of the given element
