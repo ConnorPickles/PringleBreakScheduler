@@ -518,9 +518,9 @@ function changeScreen(page, newScreen) {
     } // switch
     document.getElementById(currentScreen).className = "hidden";
     document.getElementById(newScreen).className = "visible";
-    if (currentScreen == "home") {
+    if (currentScreen == "home" && newScreen != "home") {
         document.getElementById(newScreen + "Button").className = "activeMenuButton";
-    } else if (newScreen == "home") {
+    } else if (newScreen == "home" && currentScreen != "home") {
         document.getElementById(currentScreen + "Button").className = "menuButton";
     } else {
         // not all current screens have associated buttons
