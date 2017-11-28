@@ -179,7 +179,7 @@ function readLeaders() {
         tempLeader.breaksNotDuring = input[8];
         tempLeader.cabin = input[9];
         tempLeader.atCamp = input[10];
-        tempLeader.number = input[11];
+        tempLeader.number = parseInt(input[11]);
 
         if (tempLeader.ropes == "true") {
             tempLeader.ropes = true;
@@ -203,6 +203,12 @@ function readLeaders() {
             tempLeader.staff = true;
         } else {
             tempLeader.staff = false;
+        } // else
+
+        if (tempLeader.atCamp == "true") {
+            tempLeader.atCamp = true;
+        } else {
+            tempLeader.atCamp = false;
         } // else
 
         leaders.push(tempLeader);
