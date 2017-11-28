@@ -139,7 +139,7 @@ function init() {
         } // if
 
         // don't let leaders with the same name be added
-        if (leaderExists(firstNameField.value, lastNameField.value)) {
+        if (leaderExists(firstNameField.value, lastNameField.value) != -1) {
             alert("This leader has already been added!");
             return false;
         } // if
@@ -209,7 +209,8 @@ function readLeaders() {
     } // for i
 } // readLeaders
 
-// checks if a leader with the given name exists
+// checks if a leader with the given name exists.
+// returns the index of the leader if they exist, -1 otherwise
 function leaderExists(firstName, lastName) {
     firstName = firstName.toLowerCase();
     lastName = lastName.toLowerCase();
@@ -220,11 +221,11 @@ function leaderExists(firstName, lastName) {
         currFirst = leaders[i].firstName.toLowerCase();
         currLast = leaders[i].lastName.toLowerCase();
         if (firstName == currFirst && lastName == currLast) {
-            return true;
+            return i;
         } // if
     } // for i
 
-    return false;
+    return -1;
 } // leaderExists
 
 // deletes a leader
@@ -445,8 +446,9 @@ function displayLeaderToEdit(i) {
         } // else if
 
         // don't let the name be changed to an existing leader
-        if (leaderExists(firstNameField.value, lastNameField.value)) {
-            alert("This leader already exists!");
+        leaderIndex = leaderExists(firstNameField.value, lastNameField.value)
+        if (leaderIndex >= 0 && leaderIndex != index) {
+            alert("This is the name of a different leader!");
             return false;
         } // if
 
@@ -521,8 +523,13 @@ function changeScreen(page, newScreen) {
     } else if (newScreen == "home") {
         document.getElementById(currentScreen + "Button").className = "menuButton";
     } else {
-        document.getElementById(currentScreen + "Button").className = "menuButton";
-        document.getElementById(newScreen + "Button").className = "activeMenuButton";
+        // not all current screens have associated buttons
+        try {
+            document.getElementById(currentScreen + "Button").className = "menuButton";
+            document.getElementById(newScreen + "Button").className = "activeMenuButton";
+        } catch (err) {
+
+        } // catch
     }
 } // changeScreen
 
