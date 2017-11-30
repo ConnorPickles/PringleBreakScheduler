@@ -114,21 +114,11 @@ function init() {
         var NLBox = document.getElementById("newLeaderNL");
         var sailingBox = document.getElementById("newLeaderSailing");
         var staffBox = document.getElementById("newLeaderStaff");
-        var volunteerBox = document.getElementById("newLeaderVolunteer");
         var rolesList = document.getElementById("newLeaderRoles");
         var breaksDuringField = document.getElementById("newLeaderBreaksDuring");
         var breaksNotDuringField = document.getElementById("newLeaderBreaksNotDuring");
         var cabinsList = document.getElementById("newLeaderCabins");
         var atCampBox = document.getElementById("newLeaderAtCamp");
-
-        // check for invalid input
-        if (!staffBox.checked && !volunteerBox.checked) {
-            alert("Please check the Staff box or the Volunteer box");
-            return false;
-        } else if (staffBox.checked && volunteerBox.checked) {
-            alert("A leader cannot be staff and volunteer! Please uncheck one of the boxes");
-            return false;
-        } // else if
 
         if (breaksDuringField.value == "") {
             breaksDuringField.value = " ";

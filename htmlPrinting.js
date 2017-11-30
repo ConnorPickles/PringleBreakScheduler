@@ -26,9 +26,14 @@ function displayLeaderToEdit(i) {
     content += "First Name:<br>";
     content += "<input type='text' id='editLeaderFirstName' value='" + leaders[i].firstName + "' required><br>";
     content += "Last Name:<br>";
-
     content += "<input type='text' id='editLeaderLastName' value='" + leaders[i].lastName + "' required><br><br>";
+
     content += "Please check all that apply:<br>";
+    content += "<input type='checkbox' id='editLeaderStaff'";
+    if (leaders[i].staff) {
+        content += " checked";
+    } // if
+    content += ">Paid Staff<br>";
     content += "<input type='checkbox' id='editLeaderRopes'";
     if (leaders[i].ropes) {
         content += " checked";
@@ -44,17 +49,6 @@ function displayLeaderToEdit(i) {
         content += " checked";
     } // if
     content += ">Can Sail<br><br>";
-
-    content += "Staff or Volunteer?<br>";
-    content += "<input type='checkbox' id='editLeaderStaff'";
-    if (leaders[i].staff) {
-        content += " checked";
-    } // if
-    content += ">Staff<input type='checkbox' id='editLeaderVolunteer'";
-    if (!leaders[i].staff) {
-        content += " checked";
-    } // if
-    content += ">Volunteer<br><br>";
 
     content += "Role: <select id='editLeaderRoles'>";
     content += "<option value='cabinLeader'";
@@ -177,21 +171,11 @@ function displayLeaderToEdit(i) {
         var NLBox = document.getElementById("editLeaderNL");
         var sailingBox = document.getElementById("editLeaderSailing");
         var staffBox = document.getElementById("editLeaderStaff");
-        var volunteerBox = document.getElementById("editLeaderVolunteer");
         var rolesList = document.getElementById("editLeaderRoles");
         var breaksDuringField = document.getElementById("editLeaderBreaksDuring");
         var breaksNotDuringField = document.getElementById("editLeaderBreaksNotDuring");
         var cabinsList = document.getElementById("editLeaderCabins");
         var atCampBox = document.getElementById("editLeaderAtCamp");
-
-        // check for invalid input
-        if (!staffBox.checked && !volunteerBox.checked) {
-            alert("Please check the Staff box or the Volunteer box");
-            return false;
-        } else if (staffBox.checked && volunteerBox.checked) {
-            alert("A leader cannot be staff and volunteer! Please uncheck one of the boxes");
-            return false;
-        } // else if
 
         // don't let the name be changed to an existing leader
         leaderIndex = leaderExists(firstNameField.value, lastNameField.value)
