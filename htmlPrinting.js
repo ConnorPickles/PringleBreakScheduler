@@ -4,7 +4,7 @@
 // prints the content of the leaderList div
 function displayLeaders() {
     var content = "<h2>Click a leader to edit their information:</h2><ul>";
-
+    
     for (var i = 0; i < leaders.length; i++) {
         content += "<li><a href=\"javascript:changeScreen('editLeader', 'leaderInfo'), displayLeaderToEdit(" + i + ")\" class='editLeaderList'>";
         content += leaders[i].firstName + " " + leaders[i].lastName + "</a></li>";
@@ -48,7 +48,7 @@ function displayLeaderToEdit(i) {
     if (leaders[i].sailing) {
         content += " checked";
     } // if
-    content += ">Can Sail<br><br>";
+    content += ">Can Teach Sailing<br><br>";
 
     content += "Role: <select id='editLeaderRoles'>";
     content += "<option value='cabinLeader'";

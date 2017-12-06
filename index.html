@@ -19,7 +19,7 @@
                 <button id="newInfoButton" class="menuButton" onClick="changeScreen('main', 'newInfo')">
                     Add New Information
                 </button>
-                <button id="editInfoButton" class="menuButton" onClick="changeScreen('main', 'editInfo')">
+                <button id="editInfoButton" class="menuButton" onClick="changeScreen('main', 'editInfo'), displayLeaders()">
                     Edit Information
                 </button>
                 <button id="editActivityScheduleButton" class="menuButton" onClick="changeScreen('main', 'editActivitySchedule')">
@@ -63,7 +63,7 @@
                         <input type="checkbox" id="newLeaderStaff">Paid Staff<br>
                         <input type="checkbox" id="newLeaderRopes">Ropes Training<br>
                         <input type="checkbox" id="newLeaderNL">Lifeguard<br>
-                        <input type="checkbox" id="newLeaderSailing">Can Sail<br>
+                        <input type="checkbox" id="newLeaderSailing">Can Teach Sailing<br>
                         <br>
                         Role:
                         <select id="newLeaderRoles">
