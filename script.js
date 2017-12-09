@@ -9,38 +9,50 @@ var currentNewInfo = "newLeader"; // current newInfo page
 var currentEditInfo = "editLeader"; // current editInfo page
 var currentEditLeader = "leaderList"; // current editLeader page
 var leaders = []; // array of leaders
-var info = new information();
+var activities = []; // array of activities
+var info = new Information();
 
 // information object
-function information() {
+function Information() {
     this.numLeaders;
+    this.numActivities;
 
     // get information from local storage
-    this.readInformation = function () {
+    this.readInformation = function() {
         var inputString = localStorage.information;
 
         // if no data exists, set default values
         if (inputString == null) {
             this.numLeaders = 0;
+            this.numActivities = 0;
+
+            setDefaultActivities();
         } else {
             var input = inputString.split("_");
+
+            // accounts for the case when a certain browser already has some information, but not everything
+            if (input.length < 2 + 1) {
+                setDefaultActivities();
+            } // if
             this.numLeaders = input[0];
+            this.numActivities = input[1];
         } // else
 
     } // readInformation
 
     // save information to local storage
-    this.saveInformation = function () {
+    this.saveInformation = function() {
         var output = "";
 
         output += leaders.length + "_";
+        output += activities.length + "_";
 
         localStorage.information = output;
     } // saveInformation
-} // information
+} // Information
 
 // leader object
-function leader() {
+function Leader() {
     this.firstName;
     this.lastName;
     this.ropes;
@@ -55,7 +67,7 @@ function leader() {
     this.number;
 
     // initialize leader values
-    this.setValues = function (newFirstName, newLastName, newRopes, newLifeguard, newSailing, newStaff, newRole, newBreaksDuring, newBreaksNotDuring, newCabin, newAtCamp, newNumber) {
+    this.setValues = function(newFirstName, newLastName, newRopes, newLifeguard, newSailing, newStaff, newRole, newBreaksDuring, newBreaksNotDuring, newCabin, newAtCamp, newNumber) {
         this.firstName = newFirstName;
         this.lastName = newLastName;
         this.ropes = newRopes;
@@ -70,8 +82,8 @@ function leader() {
         this.number = newNumber;
     } // setValues
 
-    // saves leader to the HTML file
-    this.saveLeader = function () {
+    // saves leader to localStorage
+    this.saveLeader = function() {
         var output = "";
         output += this.firstName + "_" + this.lastName + "_" + this.ropes + "_" + this.lifeguard + "_";
         output += this.sailing + "_" + this.staff + "_" + this.role + "_" + this.breaksDuring + "_";
@@ -81,8 +93,8 @@ function leader() {
     } // saveLeader
 
     // displays all information for a leader
-    this.alertLeader = function () {
-        var output = "input recieved\n";
+    this.alertLeader = function() {
+        var output = "";
         output += "First name: " + this.firstName + "\n";
         output += "Last name: " + this.lastName + "\n";
         output += "ropes: " + this.ropes + "\n";
@@ -97,17 +109,59 @@ function leader() {
         output += "number: " + this.number + "\n";
         alert(output);
     } // alertLeader
-} // leader
+} // Leader
+
+// activity object
+function Activity() {
+    this.name;
+    this.intro;
+    this.day;
+    this.otherLeaders;
+    this.ropes;
+    this.number;
+
+    // initialize activity values
+    this.setValues = function(newName, newIntro, newDay, newOtherLeaders, newRopes, newNumber) {
+        this.name = newName;
+        this.intro = newIntro;
+        this.day = newDay;
+        this.otherLeaders = newOtherLeaders;
+        this.ropes = newRopes;
+        this.number = newNumber
+    } // setValues
+
+    // saves activity to localStorage
+    this.saveActivity = function() {
+        var output = "";
+        output += this.name + "_" + this.intro + "_" + this.day + "_" + this.otherLeaders + "_" + this.ropes + "_" + this.number;
+
+        localStorage.setItem("activity" + this.number, output);
+    } // saveActivity
+
+    // displays all information for an activity
+    this.alertActivity = function() {
+        var output = "";
+        output += "Activity Name: " + this.name + "\n";
+        output += "intro: " + this.intro + "\n";
+        output += "day: " + this.day + "\n";
+        output += "otherLeaders: " + this.otherLeaders + "\n";
+        output += "ropes: " + this.ropes + "\n";
+        output += "number: " + this.number + "\n";
+        alert(output);
+    } // alertActivity
+} // Activity
 
 // called when the page loads
 function init() {
     var newLeaderForm = document.getElementById("newLeaderForm");
+    var newActivityForm = document.getElementById("newActivityForm");
 
     info.readInformation();
     readLeaders();
+    readActivities();
 
     // handle input for a new leader
-    newLeaderForm.onsubmit = function () {
+    newLeaderForm.onsubmit = function() {
         var firstNameField = document.getElementById("newLeaderFirstName");
         var lastNameField = document.getElementById("newLeaderLastName");
         var ropesBox = document.getElementById("newLeaderRopes");
@@ -134,7 +188,7 @@ function init() {
             return false;
         } // if
 
-        var newLeader = new leader();
+        var newLeader = new Leader();
 
         newLeader.setValues(firstNameField.value, lastNameField.value,
             ropesBox.checked, NLBox.checked, sailingBox.checked, staffBox.checked,
@@ -149,7 +203,132 @@ function init() {
 
         return false;
     }; // newLeaderForm.onsubmit
+
+    // handle input for a new activity
+    newActivityForm.onsubmit = function() {
+        var nameField = document.getElementById("newActivityName");
+        var introField = document.getElementById("newActivityIntro");
+        var dayBox = document.getElementById("newActivityDay");
+        var otherLeadersBox = document.getElementById("newActivityOtherLeaders");
+        var ropesBox = document.getElementById("newActivityRopes");
+
+        if (activityExists(nameField.value) != -1) {
+            alert("This activity has already been added!");
+            return false;
+        } // if
+
+        var newActivity = new Activity();
+
+        newActivity.setValues(nameField.value, introField.checked, dayBox.checked, otherLeadersBox.checked, ropesBox.checked, activities.length);
+
+        activities.push(newActivity);
+        activities[activities.length - 1].saveActivity();
+        info.saveInformation();
+
+        alert("Activity successfully added!");
+        newActivity.alertActivity();
+        alertActivities();
+
+        return false;
+    } // newActivityForm.onsubmit
 } // init
+
+function setDefaultActivities() {
+    for (var i = 0; i < 16; i++) {
+        var newActivity = new Activity();
+        var name = "";
+        var intro = false;
+        var day = false;
+        var otherLeaders = false;
+        var ropes = false;
+
+        switch(i) {
+            case 0:
+                name = "Archery";
+                day = true;
+                break;
+            case 1:
+                name = "Climbing Wall";
+                day = true;
+                ropes = true;
+                break;
+            case 2:
+                name = "Low Ropes";
+                day = true;
+                ropes = true;
+                break;
+            case 3:
+                name = "Camp Rules";
+                intro = true;
+                day = true;
+                otherLeaders = true;
+                break;
+            case 4:
+                name = "Swim Test & Rules";
+                intro = true;
+                day = true;
+                otherLeaders = true;
+                break;
+            case 5:
+                name = "Faith Fort";
+                intro = true;
+                day = true;
+                otherLeaders = true;
+                break;
+            case 6:
+                name = "Trust Games";
+                day = true;
+                break;
+            case 7:
+                name = "Paddle Boarding";
+                day = true;
+                otherLeaders = true;
+                break;
+            case 8:
+                name = "Kayaking";
+                day = true;
+                otherLeaders = true;
+                break;
+            case 9:
+                name = "Canoeing";
+                day = true;
+                otherLeaders = true;
+                break;
+            case 10:
+                name = "Sailing";
+                day = true;
+                otherLeaders = true;
+                break;
+            case 11:
+                name = "Faithquest";
+                day = true;
+                otherLeaders = true;
+                break;
+            case 12:
+                name = "Orienteering";
+                day = true;
+                break;
+            case 13:
+                name = "No Trace";
+                day = true;
+                break;
+            case 14:
+                name = "Gnome Homes";
+                day = true;
+                break;
+            case 15:
+                name = "High Ropes";
+                day = true;
+                ropes = true;
+                break;
+        } // switch
+
+        newActivity.setValues(name, intro, day, otherLeaders, ropes, activities.length);
+        activities.push(newActivity);
+        activities[activities.length - 1].saveActivity();
+        info.saveInformation();
+    } // for i
+} // setDefaultActivities
 
 // gets all leaders from localStorage
 function readLeaders() {
@@ -157,7 +336,7 @@ function readLeaders() {
         var inputString = localStorage.getItem("leader" + i);
         var input = inputString.split("_");
 
-        var tempLeader = new leader();
+        var tempLeader = new Leader();
         tempLeader.firstName = input[0];
         tempLeader.lastName = input[1];
         tempLeader.ropes = input[2];
@@ -205,6 +384,47 @@ function readLeaders() {
     } // for i
 } // readLeaders
 
+// gets all activites from localStorage
+function readActivities() {
+    for (var i = 0; i < info.numActivities; i++) {
+        var inputString = localStorage.getItem("activity" + i);
+        var input = inputString.split("_");
+
+        var tempActivity = new Activity();
+        tempActivity.name = input[0];
+        tempActivity.day = input[1];
+        tempActivity.otherLeaders = input[2];
+        tempActivity.ropes = input[3];
+        tempActivity.number = parseInt(input[4]);
+
+        if (tempActivity.intro == "true") {
+            tempActivity.intro = true;
+        } else {
+            tempActivity.intro = false;
+        } // else
+
+        if (tempActivity.day == "true") {
+            tempActivity.day = true;
+        } else {
+            tempActivity.day = false;
+        } // else
+
+        if (tempActivity.otherLeaders == "true") {
+            tempActivity.otherLeaders = true;
+        } else {
+            tempActivity.otherLeaders = false;
+        } // else
+
+        if (tempActivity.ropes == "true") {
+            tempActivity.ropes = true;
+        } else {
+            tempActivity.ropes = false;
+        } // else
+
+        activities.push(tempActivity);
+    } // for i
+} // readActivities
+
 // checks if a leader with the given name exists.
 // returns the index of the leader if they exist, -1 otherwise
 function leaderExists(firstName, lastName) {
@@ -224,6 +444,20 @@ function leaderExists(firstName, lastName) {
     return -1;
 } // leaderExists
 
+function activityExists(name) {
+    name = name.toLowerCase();
+    var currName = "";
+
+    for (var i = 0; i < activities.length; i++) {
+        currName = activities[i].name.toLowerCase();
+        if (currName == name) {
+            return i;
+        } // if
+     } // for i
+
+     return -1;
+} // activityExists
+
 // deletes a leader
 function deleteLeader(i) {
     leaders.splice(i, 1);
@@ -237,6 +471,17 @@ function deleteLeader(i) {
     alert("Leader successfully deleted!");
 } // deleteLeader
 
+// deletes an activity
+function deleteActivity(i) {
+    activities.splice(i, 1);
+    info.saveInformation();
+
+    for (var j = i; j < activities.length; j++) {
+        activities[j].number--;
+        activities[j].saveActivity();
+    } // for j
+} // deleteActivity
+
 // alerts a list of leaders with their first and last name
 function alertLeaders() {
     var output = "List of leaders:\n";
@@ -248,6 +493,17 @@ function alertLeaders() {
 
     alert(output)
 } // alertLeaders
+
+// alerts a list of activities
+function alertActivities() {
+    var output = "List of activities:\n";
+
+    for (var i = 0; i < activities.length; i++) {
+        output += activities[i].name + "\n";
+    } // for i
+
+    alert(output);
+} // alertActivities
 
 // makes the displayed screen newScreen
 function changeScreen(page, newScreen) {
