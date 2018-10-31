@@ -1,6 +1,6 @@
 /************************************************************************
 * Name:    Pringle Break Scheduler
-* Author: Connor Pickles
+* Author:  Connor Pickles
 * Date:    September 11th, 2017
 * Purpose: To create break schedules for Camp Pringle's summer program
 *************************************************************************/
@@ -233,6 +233,7 @@ function init() {
     } // newActivityForm.onsubmit
 } // init
 
+// pre loads activities
 function setDefaultActivities() {
     for (var i = 0; i < 16; i++) {
         var newActivity = new Activity();
