@@ -5,18 +5,16 @@
     light brown: 241, 192, 158, #F1C09E
     dark brown: 139, 107, 91, #8B6B5B
 */
-
 body {
     background-image: url(Images/bg3.jpg);
     background-color: black;
     background-position: top center;
     background-repeat: no-repeat;
     background-size: 100%;
-    font-family:Tahoma, Geneva, sans-serif;
+    font-family: Tahoma, Geneva, sans-serif;
 }
 
 /* Id's */
-
 /* max height: 1280px */
 #main {
     position: relative;
@@ -81,10 +79,7 @@ body {
 }
 
 /* End of Id's */
-
-
 /* Classes */
-
 .menuButton {
     font-size: 20px;
     padding: 5px;
@@ -140,11 +135,11 @@ body {
 }
 
 .hidden {
-  display:none;
+    display: none;
 }
 
 .visible {
-  display:block;
+    display: block;
 }
 
 /* End of Classes */

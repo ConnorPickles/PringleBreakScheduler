@@ -1,9 +1,9 @@
 /************************************************************************
-* Name:    Pringle Break Scheduler
-* Author:  Connor Pickles
-* Date:    September 11th, 2017
-* Purpose: To create break schedules for Camp Pringle's summer program
-*************************************************************************/
+ * Name:    Pringle Break Scheduler
+ * Author:  Connor Pickles
+ * Date:    September 11th, 2017
+ * Purpose: To create break schedules for Camp Pringle's summer program
+ *************************************************************************/
 var currentMain = "home"; // current main page
 var currentNewInfo = "newLeader"; // current newInfo page
 var currentEditInfo = "editLeader"; // current editInfo page
@@ -243,7 +243,7 @@ function setDefaultActivities() {
         var otherLeaders = false;
         var ropes = false;
 
-        switch(i) {
+        switch (i) {
             case 0:
                 name = "Archery";
                 day = true;
@@ -454,9 +454,9 @@ function activityExists(name) {
         if (currName == name) {
             return i;
         } // if
-     } // for i
+    } // for i
 
-     return -1;
+    return -1;
 } // activityExists
 
 // deletes a leader
@@ -546,11 +546,11 @@ function changeScreen(page, newScreen) {
 
 // switches the visibility of the given element
 function changeVisibility(element) {
-  var name = document.getElementById(element).className;
+    var name = document.getElementById(element).className;
 
-  if (name == "hidden") {
-    document.getElementById(element).className = "visible";
-  } else {
-    document.getElementById(element).className = "hidden";
-  } // else
+    if (name == "hidden") {
+        document.getElementById(element).className = "visible";
+    } else {
+        document.getElementById(element).className = "hidden";
+    } // else
 } // changeVisibility
