@@ -1,0 +1,1 @@
+// contains functions related to the activity object that print to a div

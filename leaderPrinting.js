@@ -1,5 +1,4 @@
-// this file contains all functions that print the contents of a div,
-// to eliminate clutter in the main js file
+// contains functions related to the leader object that print to a div
 
 // prints the content of the leaderList div
 function displayLeaders() {
